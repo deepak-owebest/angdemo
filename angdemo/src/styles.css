@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+.help-inline{
+    color:red;
+}
+.content-wrapper{
+ height: 95vh;
+}
+.spinner {
+    position: fixed;
+    top: 30%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.my-pagination  li.pagination-previous.disabled{
+	border:1px solid #ccc;
+}
+.my-pagination  li.pagination-next.disabled{
+	border:1px solid #ccc;
+}
+.ngx-pagination li{
+	border:1px solid #ccc;
+}
+.ngx-pagination{
+	margin-left:-40px !important;
+}
+.box-body > .table{
+	font-size:12px;
+}
+label{
+	font-size:12px;
+}

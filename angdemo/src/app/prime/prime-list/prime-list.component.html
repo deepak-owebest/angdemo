@@ -1,0 +1,72 @@
+<img class="spinner" *ngIf="loading;" src="assets/img/loader.gif" />
+ <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" *ngIf="!loading">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Prime Number
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">            
+          <div class="box-body">
+          <!-- Input Number form -->
+            <form [formGroup]="searchPrimeForm" (ngSubmit)="searchPrimeList()" class="searchform" >
+                <div class="col-md-4">
+					<div class="form-group">
+						<label> Prime Number</label>
+						<input type="text" formControlName="number" required class="form-control"  [ngClass]="{ 'is-invalid': submitted && searchPrimeForm.controls.number.errors }" (keypress)="keyPress($event)"/>
+						<div *ngIf="submitted && searchPrimeForm.controls.number.errors" class="help-inline">
+							<div *ngIf="searchPrimeForm.controls.number.errors.required">Number is required</div> 
+							<div *ngIf="searchPrimeForm.controls.number.errors.min">Please enter value greater than equal to 2</div> 
+							<div *ngIf="searchPrimeForm.controls.number.errors.max">Please enter value less than 104730</div> 
+						</div>
+					</div>
+                </div>
+				<div class="col-md-2">
+					<label></label>
+					<div class="search_buttons">
+					  <button class="btn btn-primary" type="submit">Submit</button>
+					</div>
+                </div>
+            </form>
+          <!-- Table Listing -->
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th style="text-align:left;">S.No.</th>
+                <th style="text-align:left;" *ngFor="let column of primeColumn" >
+                  {{ column.name }}
+                </th>
+              </tr>
+              </thead>	
+              <tbody *ngIf="result ">
+				<tr *ngFor="let record of result.data | paginate: { itemsPerPage: 10, currentPage: p,totalItems: result.recordsTotal }; let i = index">
+				   <td style="text-align:left">{{ (p - 1) * 10 + i +1 }}</td>
+					<td style="text-align:left">{{ record }}</td>
+				  </tr>
+              </tbody>
+				<tbody *ngIf="!result">
+					<tr>
+						<td colspan="2">No Record Found.</td>
+					</tr>
+              </tbody>
+            </table>
+
+			<!-- Pagination form -->
+			<pagination-controls *ngIf="result && result.data.length > 0" class="my-pagination" (pageChange)="pageChange($event)"></pagination-controls>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+    <!-- /.content -->
+</div>
